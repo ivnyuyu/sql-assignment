@@ -18,6 +18,19 @@ public class AssignmentDAO {
         this.entityManager = entityManager;
     }
 
+    public List<Assignment> getAllAssignments() {
+        return entityManager.createQuery("select a from Assignment a", Assignment.class).getResultList();
+    }
+
+    public Assignment getAssignmentById(Long id){
+        return entityManager.find(Assignment.class,id);
+    }
+
+    public List<Object[]> executeNativeQuery(String query){
+        Query result = entityManager.createNativeQuery(query);
+        return result.getResultList();
+    }
+
     @Transactional
     public void printConsoleAssignment() {
         Query query = entityManager.createNativeQuery("select * from assignment;", Assignment.class);

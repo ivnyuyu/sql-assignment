@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Assignment</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<h1>SQL задания</h1>
+<div th:each="assignment: ${assignments}">
+    <tr>
+        <td th:text="${assignment.id}"></td>
+        <td th:text="${assignment.description}"></td>
+        <td th:text="${assignment.correctQuery}"></td>
+        <td>
+            <a th:href="@{/assignment(assignmentId=${assignment.id})}">Решить</a>
+        </td>
+    </tr>
+</div>
+
+</body>
+</html>

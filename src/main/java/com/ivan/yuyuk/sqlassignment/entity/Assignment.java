@@ -2,7 +2,7 @@ package com.ivan.yuyuk.sqlassignment.entity;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "Assignment")
 @Table(name = "assignment")
 public class Assignment {
     @Id

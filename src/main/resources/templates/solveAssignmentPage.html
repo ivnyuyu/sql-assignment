@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Assignment</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<h1>Задание</h1>
+<p th:text="${assignment.description}"></p>
+<form action="#"
+      th:object="${answer}"
+      th:action="@{/check}"
+      method="post">
+    <input type="hidden" th:field="${assignment.id}"/>
+    <textarea th:field="*{answer}"></textarea>
+    <button type="submit">Проверить</button>
+</form>
+</body>
+</html>
