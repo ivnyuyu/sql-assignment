@@ -6,11 +6,18 @@ public class AnswerFromUserForm implements Serializable {
 
     private Long id;
     private String answer;
-    private boolean isCorrectAnswer;
-    private boolean isUserSubmitAnswer;
+    private Boolean isCorrectAnswer;
 
-    public AnswerFromUserForm(){
+    public AnswerFromUserForm() {
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getAnswer() {
@@ -21,27 +28,13 @@ public class AnswerFromUserForm implements Serializable {
         this.answer = answer;
     }
 
-    public boolean isCorrectAnswer() {
+    public Boolean getCorrectAnswer() {
         return isCorrectAnswer;
     }
 
-    public void setCorrectAnswer(boolean correctAnswer) {
+    public void setCorrectAnswer(Boolean correctAnswer) {
         isCorrectAnswer = correctAnswer;
     }
-
-    public boolean isUserSubmitAnswer() {
-        return isUserSubmitAnswer;
-    }
-
-    public void setUserSubmitAnswer(boolean userSubmitAnswer) {
-        isUserSubmitAnswer = userSubmitAnswer;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
+
+

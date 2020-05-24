@@ -2,8 +2,8 @@ package com.ivan.yuyuk.sqlassignment.controller;
 
 import com.ivan.yuyuk.sqlassignment.entity.Assignment;
 import com.ivan.yuyuk.sqlassignment.model.AnswerFromUserForm;
-import com.ivan.yuyuk.sqlassignment.repository.AssignmentDAO;
 import com.ivan.yuyuk.sqlassignment.service.AssignmentService;
+import com.ivan.yuyuk.sqlassignment.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 @Controller
@@ -31,20 +33,32 @@ public class AssignmentController {
         return "allAssignments";
     }
 
-    @GetMapping("/assignment")
-    public String assignment(@RequestParam("assignmentId") Long id, Model model, HttpServletResponse response, HttpServletRequest request) {
+    @GetMapping("/assignment/{assignmentId}")
+    public String assignment(@PathVariable("assignmentId") Long id, Model model, HttpServletResponse response, HttpServletRequest request) {
         Assignment assignment = assignmentService.getAssignmentById(id);
         model.addAttribute("assignment", assignment);
-        AnswerFromUserForm userFormAnswer = new AnswerFromUserForm();
-        model.addAttribute("answer", userFormAnswer);
+        AnswerFromUserForm tryFromCookie = Utils.getAnswerFromJson("taskProgress" + id, request.getCookies());
+        if(tryFromCookie == null) {
+            tryFromCookie = new AnswerFromUserForm();
+        }
+        model.addAttribute("answer", tryFromCookie);
+        if(tryFromCookie.getAnswer() != null) {
+            model.addAttribute("userQueryResult", assignmentService.getResult(tryFromCookie.getAnswer()));
+        }
+        model.addAttribute("expectedResult", assignmentService.getResult(assignment.getCorrectQuery()));
         return "solveAssignmentPage";
     }
 
     @PostMapping("/check")
-    public String checkAnswer(@ModelAttribute("answer") AnswerFromUserForm answer, HttpServletResponse response, HttpServletRequest request) {
-        //request.getCookies();
-        //response.addCookie(new Cookie("name", "Dmitriy"));
-        assignmentService.checkUserQuery(answer.getId(), answer.getAnswer());
-        return "redirect:/assignment?assignmentId=" + answer.getId();
+    public String checkAnswer(@ModelAttribute("answer") AnswerFromUserForm answer, HttpServletResponse response, HttpServletRequest request) throws UnsupportedEncodingException {
+        answer.setCorrectAnswer(assignmentService.checkUserQuery(answer.getId(), answer.getAnswer()));
+        Cookie cookie = null;
+        try {
+            cookie = new Cookie("taskProgress" + answer.getId(), URLEncoder.encode(Utils.convertToJson(answer), "UTF-8") );
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        response.addCookie(cookie);
+        return "redirect:/assignment/" + answer.getId();
     }
 }

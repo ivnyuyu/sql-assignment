@@ -7,7 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class AssignmentDAO {
@@ -22,13 +24,31 @@ public class AssignmentDAO {
         return entityManager.createQuery("select a from Assignment a", Assignment.class).getResultList();
     }
 
-    public Assignment getAssignmentById(Long id){
-        return entityManager.find(Assignment.class,id);
+    public Assignment getAssignmentById(Long id) {
+        return entityManager.find(Assignment.class, id);
     }
 
-    public List<Object[]> executeNativeQuery(String query){
-        Query result = entityManager.createNativeQuery(query);
-        return result.getResultList();
+    public List<Object[]> executeNativeQuery(String query) {
+        Query q = entityManager.createNativeQuery(query);
+        List results = q.getResultList();
+        if (results.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        if (results.get(0) instanceof String) {
+            return ((List<String>) results)
+                    .stream()
+                    .map(s -> new String[]{s})
+                    .collect(Collectors.toList());
+        }
+        if (results.get(0) instanceof Integer) {
+            return ((List<Integer>) results)
+                    .stream()
+                    .map(s -> new Integer[]{s})
+                    .collect(Collectors.toList());
+        } else {
+            return (List<Object[]>) results;
+        }
     }
 
     @Transactional
