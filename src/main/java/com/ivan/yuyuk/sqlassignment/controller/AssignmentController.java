@@ -61,4 +61,14 @@ public class AssignmentController {
         response.addCookie(cookie);
         return "redirect:/assignment/" + answer.getId();
     }
+
+    @GetMapping("/createTask")
+    public String createTask() {
+        return "createTaskPage";
+    }
+
+    @GetMapping("/createTable")
+    public String createTable() {
+        return "createTable";
+    }
 }
