@@ -1,6 +1,9 @@
 package com.ivan.yuyuk.sqlassignment.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity(name = "Assignment")
 @Table(name = "assignment")
@@ -15,6 +18,10 @@ public class Assignment {
 
     @Column(name = "correct_query")
     private String correctQuery;
+
+    @JoinColumn(name = "user_loader")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User userLoader;
 
     public Assignment() {
 
@@ -42,5 +49,13 @@ public class Assignment {
 
     public void setCorrectQuery(String correctQuery) {
         this.correctQuery = correctQuery;
+    }
+
+    public User getUserLoader() {
+        return userLoader;
+    }
+
+    public void setUserLoader(User userLoader) {
+        this.userLoader = userLoader;
     }
 }

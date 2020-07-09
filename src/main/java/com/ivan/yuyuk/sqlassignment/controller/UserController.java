@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Optional;
+
 @Controller
 public class UserController {
 
@@ -16,11 +18,6 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-/*    @GetMapping("/login")
-    public String getLoginPage() {
-        return "loginPage";
-    }*/
-
     @GetMapping("/registration")
     public String getRegistrationPage(Model model) {
         model.addAttribute("userReg",new User());
@@ -28,12 +25,18 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String addUser(User user , Model model) {
-        User userFromDB = userRepository.findUserByLogin(user.getLogin());
-        if(userFromDB != null) {
+    public String addUser(User user) {
+        Optional<User> userFromDB = userRepository.findByUserName(user.getUserName());
+        if(userFromDB.isPresent()) {
             return "redirect:/registration";
         }
         userRepository.save(user);
         return "redirect:/login";
+    }
+
+    @GetMapping("/userProgress")
+    public String getAll(Model model, User user){
+        model.addAttribute("progress",userRepository.findByUserName(user.getUserName()));
+        return "userProgress";
     }
 }

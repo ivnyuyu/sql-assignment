@@ -7,41 +7,26 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
-    @Column(name = "login")
-    private String login;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "password")
+    private int id;
+    private String userName;
     private String password;
+    private boolean active;
+    private String roles;
 
-    public User() {
-
-    }
-
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -50,5 +35,32 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", active=" + active +
+                ", roles='" + roles + '\'' +
+                '}';
     }
 }
