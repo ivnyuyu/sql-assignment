@@ -20,23 +20,25 @@ public class UserController {
 
     @GetMapping("/registration")
     public String getRegistrationPage(Model model) {
-        model.addAttribute("userReg",new User());
+        model.addAttribute("userReg", new User());
         return "registrationPage";
     }
 
     @PostMapping("/registration")
     public String addUser(User user) {
         Optional<User> userFromDB = userRepository.findByUserName(user.getUserName());
-        if(userFromDB.isPresent()) {
+        if (userFromDB.isPresent()) {
             return "redirect:/registration";
         }
+        user.setActive(true);
+        user.setRoles("USER");
         userRepository.save(user);
         return "redirect:/login";
     }
 
     @GetMapping("/userProgress")
-    public String getAll(Model model, User user){
-        model.addAttribute("progress",userRepository.findByUserName(user.getUserName()));
+    public String getAll(Model model, User user) {
+        model.addAttribute("progress", userRepository.findByUserName(user.getUserName()));
         return "userProgress";
     }
 }
