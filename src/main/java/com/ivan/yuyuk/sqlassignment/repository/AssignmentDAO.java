@@ -30,8 +30,9 @@ public class AssignmentDAO {
 
     public List<Object[]> executeNativeQuery(String query) {
         Query q = entityManager.createNativeQuery(query);
-        List results = q.getResultList();
-        if (results.isEmpty()) {
+        return q.getResultList();
+
+/*        if (results.isEmpty()) {
             return new ArrayList<>();
         }
 
@@ -48,7 +49,7 @@ public class AssignmentDAO {
                     .collect(Collectors.toList());
         } else {
             return (List<Object[]>) results;
-        }
+        }*/
     }
 
     @Transactional
@@ -59,4 +60,9 @@ public class AssignmentDAO {
             System.out.println(temp.getDescription() + ":" + temp.getCorrectQuery());
         }
     }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
 }

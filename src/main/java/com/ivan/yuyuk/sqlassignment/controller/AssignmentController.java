@@ -36,7 +36,7 @@ public class AssignmentController {
     }
 
     @GetMapping("/assignment/{assignmentId}")
-    public String assignment(@PathVariable("assignmentId") Long id, Model model, HttpServletResponse response, HttpServletRequest request) {
+    public String assignment(@PathVariable("assignmentId") Long id, Model model, HttpServletRequest request) {
         Assignment assignment = assignmentService.getAssignmentById(id);
         model.addAttribute("assignment", assignment);
         AnswerFromUserForm tryFromCookie = Utils.getAnswerFromJson("taskProgress" + id, request.getCookies());
@@ -52,8 +52,9 @@ public class AssignmentController {
     }
 
     @PostMapping("/check")
-    public String checkAnswer(@ModelAttribute("answer") AnswerFromUserForm answer, HttpServletResponse response, HttpServletRequest request) throws UnsupportedEncodingException {
-        answer.setCorrectAnswer(assignmentService.checkUserQuery(answer.getId(), answer.getAnswer()));
+    public String checkAnswer(@ModelAttribute("answer") AnswerFromUserForm answer, HttpServletResponse response) {
+        System.out.println("Result:"+assignmentService.checkResult(answer.getId(), answer.getAnswer()));
+        answer.setCorrectAnswer(assignmentService.checkResult(answer.getId(), answer.getAnswer()));
         Cookie cookie = null;
         try {
             cookie = new Cookie("taskProgress" + answer.getId(), URLEncoder.encode(Utils.convertToJson(answer), "UTF-8"));
@@ -62,15 +63,5 @@ public class AssignmentController {
         }
         response.addCookie(cookie);
         return "redirect:/assignment/" + answer.getId();
-    }
-
-    @GetMapping("/createTask")
-    public String createTask() {
-        return "createTaskPage";
-    }
-
-    @GetMapping("/createTable")
-    public String createTable() {
-        return "createTable";
     }
 }

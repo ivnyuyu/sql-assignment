@@ -28,6 +28,22 @@ public class AssignmentService {
         return assignmentDAO.getAssignmentById(id);
     }
 
+    public boolean checkResult(Long id, String userQuery) {
+        List<Object[]> userQueryResult = assignmentDAO.executeNativeQuery(userQuery);
+        String correctQuery = assignmentDAO.getAssignmentById(id).getCorrectQuery();
+        Object result = assignmentDAO.getEntityManager().createNativeQuery(String.format("SELECT IF(count1 = count2 AND count1 = count3, 'identical', 'mis-matched')\n" +
+                "FROM\n" +
+                "    (\n" +
+                "        SELECT\n" +
+                "            (SELECT COUNT(*) FROM (%s) as a) AS count1,\n" +
+                "            (SELECT COUNT(*) FROM (%s) as b) AS count2,\n" +
+                "            (SELECT COUNT(*) FROM (SELECT * FROM (%s) as c UNION SELECT * FROM (%s) as d) AS unioned) AS count3\n" +
+                "    )\n" +
+                "        AS counts",userQuery,correctQuery,userQuery,correctQuery)).getSingleResult();
+        System.out.println(result);
+        return result.equals("identical");
+    }
+
     public boolean checkUserQuery(Long idOfAssignment, String query) {
         List<Object[]> expectedResult;
         List<Object[]> userResult;
@@ -42,8 +58,8 @@ public class AssignmentService {
         if (expectedResult.size() != userResult.size()) {
             return false;
         }
-        for(int i = 0; i < expectedResult.size(); i++){
-            if(expectedResult.get(i).length != userResult.get(i).length){
+        for (int i = 0; i < expectedResult.size(); i++) {
+            if (expectedResult.get(i).length != userResult.get(i).length) {
                 return false;
             }
         }

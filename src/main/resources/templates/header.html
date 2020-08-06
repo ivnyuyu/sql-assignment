@@ -5,13 +5,11 @@
 <div th:fragment="copy">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">MySQL Exercises</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="#">MySQL Exercises</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/}">Все задания</a>
                     </li>
@@ -19,16 +17,7 @@
                         <a class="nav-link" th:href="@{/allMaterial}">Справочный материал</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Мои задания</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/}">Мой прогресс</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/createTable}">Добавить таблицу</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/createTask}">Добавить задание</a>
                     </li>
                     <li class="nav-item" sec:authorize="!isAuthenticated()">
                         <a class="nav-link" th:href="@{/registration}">Регистрация</a>
@@ -37,7 +26,7 @@
                         <a class="nav-link" th:href="@{/login}">Войти</a>
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="nav-link" th:href="@{/registration}"><p sec:authentication="name"></p></a>
+                        <p class="nav-link" sec:authentication="name"></p>
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">
                         <form th:action="@{/logout}" method="post">
