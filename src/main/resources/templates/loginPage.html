@@ -14,8 +14,12 @@
 <div th:insert="~{header :: copy}"></div>
 <div class="container pt-5">
 
+
     <div class="col-12 col-md-6 mx-auto">
         <h1 class="text-center">Авторизация</h1>
+        <div class="text-center" th:if="${param.error}">
+            <span style="color:red">Ошибка авторизации. Проверьте логин и пароль!</span>
+        </div>
         <form th:action="@{/login}" method="post">
             <div class="form-group">
                 <label for="loginAuth">Логин</label>

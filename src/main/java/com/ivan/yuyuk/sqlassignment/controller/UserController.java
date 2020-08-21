@@ -34,10 +34,4 @@ public class UserController {
         userRepository.save(user);
         return "redirect:/login";
     }
-
-    @GetMapping("/userProgress")
-    public String getAll(Model model, User user) {
-        model.addAttribute("progress", userRepository.findByUserName(user.getUserName()));
-        return "userProgress";
-    }
 }

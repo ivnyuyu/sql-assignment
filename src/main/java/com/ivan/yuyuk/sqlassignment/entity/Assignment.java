@@ -1,6 +1,7 @@
 package com.ivan.yuyuk.sqlassignment.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,6 +23,13 @@ public class Assignment {
     @JoinColumn(name = "user_loader")
     @ManyToOne(fetch = FetchType.EAGER)
     private User userLoader;
+
+    @OneToMany(
+            mappedBy = "assignment",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Solution> userSolutions = new ArrayList<>();
 
     public Assignment() {
 
@@ -57,5 +65,13 @@ public class Assignment {
 
     public void setUserLoader(User userLoader) {
         this.userLoader = userLoader;
+    }
+
+    public List<Solution> getUserSolutions() {
+        return userSolutions;
+    }
+
+    public void setUserSolutions(List<Solution> userSolutions) {
+        this.userSolutions = userSolutions;
     }
 }

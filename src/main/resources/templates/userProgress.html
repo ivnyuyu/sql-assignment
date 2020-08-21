@@ -11,21 +11,24 @@
 <div th:insert="~{header :: copy}"></div>
 
 <div class="container pt-5">
-    <h1>SQL задания</h1>
+    <h1>Ваши решенные задачи</h1>
+    <div th:each="temp: ${progress}" style="padding:5px">
     <div class="col-12 mb-3">
         <div class="card">
             <div class="card-body alert-success">
                 <div class="row">
                     <div class="col-12 col-sm-9">
-                        <h5 class="card-title"></h5>
-                        <p class="card-text"></p>
+                        <h5 class="card-title" th:text="${temp.getAssignment().getId()}"></h5>
+                        <p class="card-text" th:text="${temp.getAssignment().getDescription()}"></p>
+                        <p class="card-text" th:text="${temp.getCreatedOn()}"></p>
                     </div>
                     <div class="col-12 col-sm-3 d-flex justify-content-end align-items-center">
-                        <a href="#" class="btn btn-success">Просмотр</a>
+                        <p class="card-text" th:text="${temp.getAnswer()}"></p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
 

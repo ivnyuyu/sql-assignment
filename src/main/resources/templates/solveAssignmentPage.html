@@ -27,11 +27,14 @@
                 <p>Введите ваш запрос:</p>
                 <textarea class="form-control" th:field="*{answer}"></textarea>
                 <button class="btn btn-primary mt-4" type="submit">Проверить</button>
-
-                <img th:src="@{/images/close.png}" style="width: 48px; height: 48px;">
             </form>
+            <div th:if="${answer.correctAnswer}">
+                <img th:src="@{/images/wrong.svg}" style="width: 48px; height: 48px;">
+            </div>
+            <div th:if="${answer.correctAnswer == false}">
+                <img th:src="@{/images/close.png}" style="width: 48px; height: 48px;">
+            </div>
         </div>
-        <div>Вы решили задачу неправильно, возможно вам нужен <a href="">справочный материал по этой теме.</a></div>
         <div class="col-12 col-md-6">
             <h5>Ожидаемый результат</h5>
             <table class="border table table-striped w-100">

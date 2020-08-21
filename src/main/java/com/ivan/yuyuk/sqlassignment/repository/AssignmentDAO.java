@@ -3,13 +3,10 @@ package com.ivan.yuyuk.sqlassignment.repository;
 import com.ivan.yuyuk.sqlassignment.entity.Assignment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class AssignmentDAO {
@@ -31,34 +28,6 @@ public class AssignmentDAO {
     public List<Object[]> executeNativeQuery(String query) {
         Query q = entityManager.createNativeQuery(query);
         return q.getResultList();
-
-/*        if (results.isEmpty()) {
-            return new ArrayList<>();
-        }
-
-        if (results.get(0) instanceof String) {
-            return ((List<String>) results)
-                    .stream()
-                    .map(s -> new String[]{s})
-                    .collect(Collectors.toList());
-        }
-        if (results.get(0) instanceof Integer) {
-            return ((List<Integer>) results)
-                    .stream()
-                    .map(s -> new Integer[]{s})
-                    .collect(Collectors.toList());
-        } else {
-            return (List<Object[]>) results;
-        }*/
-    }
-
-    @Transactional
-    public void printConsoleAssignment() {
-        Query query = entityManager.createNativeQuery("select * from assignment;", Assignment.class);
-        List<Assignment> result = query.getResultList();
-        for (Assignment temp : result) {
-            System.out.println(temp.getDescription() + ":" + temp.getCorrectQuery());
-        }
     }
 
     public EntityManager getEntityManager() {
