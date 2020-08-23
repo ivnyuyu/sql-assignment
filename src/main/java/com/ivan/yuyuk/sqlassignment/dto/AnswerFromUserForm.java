@@ -1,4 +1,4 @@
-package com.ivan.yuyuk.sqlassignment.model;
+package com.ivan.yuyuk.sqlassignment.dto;
 
 import java.io.Serializable;
 

@@ -1,7 +1,7 @@
 package com.ivan.yuyuk.sqlassignment.controller;
 
 import com.ivan.yuyuk.sqlassignment.entity.Assignment;
-import com.ivan.yuyuk.sqlassignment.model.AnswerFromUserForm;
+import com.ivan.yuyuk.sqlassignment.dto.AnswerFromUserForm;
 import com.ivan.yuyuk.sqlassignment.service.ApplicationService;
 import com.ivan.yuyuk.sqlassignment.service.CookieManagerService;
 import org.springframework.beans.factory.annotation.Autowired;

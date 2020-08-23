@@ -1,7 +1,7 @@
 package com.ivan.yuyuk.sqlassignment.service;
 
 import com.google.gson.Gson;
-import com.ivan.yuyuk.sqlassignment.model.AnswerFromUserForm;
+import com.ivan.yuyuk.sqlassignment.dto.AnswerFromUserForm;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;

@@ -17,14 +17,17 @@
     <div class="col-12 col-md-6 mx-auto">
         <h1 class="text-center">Регистрация</h1>
         <form th:action="@{/registration}"
+              th:object="${userDTO}"
               method="post">
             <div th:if="${errorMessage != null}" class="form-group">
                 <h5 style="color: red; text-align: center">Ошибка регистрации, пользователь с таким именем уже зарегистрирован!</h5>
             </div>
+            <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" style="color:red">Ошибка</p>
             <div class="form-group">
                 <label for="loginReg">Логин</label>
                 <input type="text" class="form-control" id="loginReg" placeholder="Логин" th:name="userName">
             </div>
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red">Ошибка</p>
             <div class="form-group">
                 <label for="passwordReg">Пароль</label>
                 <input type="password" class="form-control" id="passwordReg" placeholder="Пароль"

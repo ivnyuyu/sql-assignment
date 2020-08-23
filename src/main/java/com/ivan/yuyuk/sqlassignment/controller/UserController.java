@@ -1,13 +1,15 @@
 package com.ivan.yuyuk.sqlassignment.controller;
 
+import com.ivan.yuyuk.sqlassignment.dto.UserDTO;
 import com.ivan.yuyuk.sqlassignment.entity.User;
 import com.ivan.yuyuk.sqlassignment.service.ApplicationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -24,12 +26,21 @@ public class UserController {
         if (isError != null) {
             model.addAttribute("errorMessage", "Пользователь с таким именем уже существует!");
         }
+        if (!model.containsAttribute("userDTO")) {
+            model.addAttribute("userDTO", new UserDTO());
+        }
+
         return "registrationPage";
     }
 
     @PostMapping("/registration")
-    public String addUser(User user) {
-        boolean isSuccessRegistration = service.doRegistration(user);
+    public String addUser(@Valid UserDTO userDTO, BindingResult validationResult, RedirectAttributes redirectAttributes) {
+        if(validationResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userDTO", validationResult);
+            redirectAttributes.addFlashAttribute("userDTO",userDTO);
+            return "redirect:/registration";
+        }
+        boolean isSuccessRegistration = service.doRegistration(userDTO);
         if (isSuccessRegistration) {
             return "redirect:/login";
         }

@@ -1,16 +1,18 @@
 package com.ivan.yuyuk.sqlassignment.service;
 
+import com.ivan.yuyuk.sqlassignment.dto.UserDTO;
 import com.ivan.yuyuk.sqlassignment.entity.Assignment;
 import com.ivan.yuyuk.sqlassignment.entity.Solution;
 import com.ivan.yuyuk.sqlassignment.entity.SolutionId;
 import com.ivan.yuyuk.sqlassignment.entity.User;
-import com.ivan.yuyuk.sqlassignment.model.ResponseStatus;
+import com.ivan.yuyuk.sqlassignment.dto.ResponseStatus;
 import com.ivan.yuyuk.sqlassignment.repository.AssignmentDAO;
 import com.ivan.yuyuk.sqlassignment.repository.SolutionRepository;
 import com.ivan.yuyuk.sqlassignment.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +28,9 @@ public class ApplicationService {
     private final PasswordEncoder passwordEncoder;
 
     private final static List<String> FORBIDDEN_KEY = new ArrayList<String>() {{
-       add("UPDATE");
-       add("DELETE");
-       add("INSERT");
+       add("USERS");
+       add("ASSIGNMENT");
+       add("SOLUTION");
     }};
 
     @Autowired
@@ -112,13 +114,14 @@ public class ApplicationService {
         return solutionDAO.findSolutionsByUser_Id(getCurrentUserProfile().getId());
     }
 
-    public boolean doRegistration(User user) {
+    public boolean doRegistration(UserDTO user) {
         Optional<User> userFromDB = userRepository.findByUserName(user.getUserName());
         if(!userFromDB.isPresent()) {
-            user.setActive(true);
-            user.setRoles("USER");
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
+            User newUser = new User();
+            newUser.setActive(true);
+            newUser.setRoles("USER");
+            newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(newUser);
             return true;
         }
         return false;

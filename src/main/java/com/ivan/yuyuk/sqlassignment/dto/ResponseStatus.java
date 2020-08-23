@@ -1,11 +1,11 @@
-package com.ivan.yuyuk.sqlassignment.model;
+package com.ivan.yuyuk.sqlassignment.dto;
 
 import java.io.Serializable;
 
 public enum ResponseStatus implements Serializable {
     SUCCESS("Поздравляю! Задание решено верно.", true),
     EMPTY("", null),
-    FORBIDDEN_KEY_USE_ERROR("Ошибка, использованы недопустимые ключевые слова 'INSERT', 'UPDATE', 'DELETE'.", false),
+    FORBIDDEN_KEY_USE_ERROR("Ошибка, использованы недопустимые ключевые слова 'ASSIGNMENT', 'USERS', 'SOLUTION'.", false),
     SYNTAX_ERROR("Ошибка синтаксиса запроса.", false),
     NO_MATCH_RESULT_ERROR("Результат вашего запроса несовпадает с ожидаемым.", false);
 
