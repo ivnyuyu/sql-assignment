@@ -11,7 +11,9 @@
 <div th:insert="~{header :: copy}"></div>
 
 <div class="container pt-5">
-    <img th:src="@{/images/schema.png}" style="align-content: center; height: 300px">
+    <div class="col-sm-12 text-center">
+        <img class="center-block" th:src="@{/images/schema.png}" style="height: 300px; display: inline-block;">
+    </div>
     <div class="row">
         <div class="col-12 col-md-6">
             <h1>Задание</h1>
@@ -24,15 +26,18 @@
                   method="post"
                   class="text-center">
                 <input type="hidden" th:field="${assignment.id}"/>
-                <p>Введите ваш запрос:</p>
-                <textarea class="form-control" th:field="*{answer}"></textarea>
+                <h6>Введите ваш запрос:</h6>
+                <textarea class="form-control" rows="5" style="resize: none" th:field="*{answer}"></textarea>
                 <button class="btn btn-primary mt-4" type="submit">Проверить</button>
             </form>
-            <div th:if="${answer.status.success}">
-                <img th:src="@{/images/wrong.svg}" style="width: 48px; height: 48px;">
-            </div>
-            <div th:if="${answer.status.success == false}">
-                <img th:src="@{/images/close.png}" style="width: 48px; height: 48px;">
+        </div>
+        <div class="col-sm-12 text-center">
+            <div style="display: inline-block">
+                <img th:src="@{/images/correct.svg}" th:if="${answer.status.success}"
+                     style="width: 48px; height: 48px;">
+                <img th:src="@{/images/uncorrect.png}" th:if="${answer.status.success == false}"
+                     style="width: 48px; height: 48px;">
+                <p th:text="${answer.status.message}"></p>
             </div>
         </div>
         <div class="col-12 col-md-6">
@@ -45,7 +50,7 @@
                 </tr>
             </table>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6" th:if="${answer.status.executeQuery}">
             <h5>Результат вашего запроса</h5>
             <table class="border table table-striped w-100">
                 <tr th:each="assignment: ${userQueryResult}">

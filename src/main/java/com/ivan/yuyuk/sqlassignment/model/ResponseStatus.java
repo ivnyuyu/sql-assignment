@@ -3,7 +3,7 @@ package com.ivan.yuyuk.sqlassignment.model;
 import java.io.Serializable;
 
 public enum ResponseStatus implements Serializable {
-    SUCCESS("Задание решено верно.", true),
+    SUCCESS("Поздравляю! Задание решено верно.", true),
     EMPTY("", null),
     FORBIDDEN_KEY_USE_ERROR("Ошибка, использованы недопустимые ключевые слова 'INSERT', 'UPDATE', 'DELETE'.", false),
     SYNTAX_ERROR("Ошибка синтаксиса запроса.", false),

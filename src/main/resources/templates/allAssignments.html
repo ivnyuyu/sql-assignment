@@ -11,7 +11,7 @@
 <div th:insert="~{header :: copy}"></div>
 
 <div class="container pt-5">
-    <h1>SQL задания</h1>
+    <h1 class="col-12 mb-3">SQL задания</h1>
     <div th:each="assignment: ${assignments}" style="padding:5px">
         <div class="col-12 mb-3">
             <div class="card">
@@ -22,7 +22,9 @@
                             <p class="card-text" th:text="${assignment.description}"></p>
                         </div>
                         <div class="col-12 col-sm-3 d-flex justify-content-end align-items-center">
-                            <a th:href="@{'/assignment/' + ${assignment.id}}">Решить</a>
+                            <form th:action="@{'/assignment/' + ${assignment.id}}" method="get">
+                                <button class="btn btn-primary" type="submit">Решить</button>
+                            </form>
                         </div>
                     </div>
                 </div>

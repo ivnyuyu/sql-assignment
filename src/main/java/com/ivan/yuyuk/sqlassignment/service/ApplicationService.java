@@ -97,9 +97,9 @@ public class ApplicationService {
         if(query == null || query.trim().length() == 0) {
             return true;
         }
-        String[] result = query.toUpperCase().trim().split(" ");
-        for(String temp: result) {
-            if(FORBIDDEN_KEY.contains(temp)) {
+        String upperCaseQuery = query.toUpperCase().trim();
+        for(String word: FORBIDDEN_KEY) {
+            if(upperCaseQuery.contains(word)) {
                 return true;
             }
         }
