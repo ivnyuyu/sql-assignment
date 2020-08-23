@@ -9,6 +9,7 @@ import com.ivan.yuyuk.sqlassignment.repository.AssignmentDAO;
 import com.ivan.yuyuk.sqlassignment.repository.SolutionRepository;
 import com.ivan.yuyuk.sqlassignment.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class ApplicationService {
     private final MyUserDetailService userService;
     private final SolutionRepository solutionDAO;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     private final static List<String> FORBIDDEN_KEY = new ArrayList<String>() {{
        add("UPDATE");
@@ -31,11 +33,13 @@ public class ApplicationService {
 
     @Autowired
     public ApplicationService(AssignmentDAO assignmentDAO, MyUserDetailService userService,
-                              SolutionRepository solutionDAO, UserRepository userRepository) {
+                              SolutionRepository solutionDAO, UserRepository userRepository,
+                              PasswordEncoder passwordEncoder) {
         this.assignmentDAO = assignmentDAO;
         this.userService = userService;
         this.solutionDAO = solutionDAO;
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<Assignment> getAllAssignments() {
@@ -65,7 +69,6 @@ public class ApplicationService {
                 "            (SELECT COUNT(*) FROM (SELECT * FROM (%s) as c UNION SELECT * FROM (%s) as d) AS unioned) AS count3\n" +
                 "    )\n" +
                 "        AS counts",userQuery,correctQuery,userQuery,correctQuery)).getSingleResult();
-        System.out.println(result);
         return result.equals("identical");
     }
 
@@ -79,7 +82,6 @@ public class ApplicationService {
             } catch (Exception e) {
                 return ResponseStatus.SYNTAX_ERROR;
             }
-            //todo fix this
             if(checkUserQuery(id, userQuery.replace(";"," "))) {
                 Solution solution = new Solution(new SolutionId(getCurrentUserProfile().getId(),id), userQuery);
                 solution.setAssignment(getAssignmentById(id));
@@ -115,7 +117,9 @@ public class ApplicationService {
         if(!userFromDB.isPresent()) {
             user.setActive(true);
             user.setRoles("USER");
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
+            return true;
         }
         return false;
     }
