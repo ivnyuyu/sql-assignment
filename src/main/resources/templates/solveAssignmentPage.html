@@ -28,10 +28,10 @@
                 <textarea class="form-control" th:field="*{answer}"></textarea>
                 <button class="btn btn-primary mt-4" type="submit">Проверить</button>
             </form>
-            <div th:if="${answer.correctAnswer}">
+            <div th:if="${answer.status.success}">
                 <img th:src="@{/images/wrong.svg}" style="width: 48px; height: 48px;">
             </div>
-            <div th:if="${answer.correctAnswer == false}">
+            <div th:if="${answer.status.success == false}">
                 <img th:src="@{/images/close.png}" style="width: 48px; height: 48px;">
             </div>
         </div>

@@ -18,7 +18,7 @@
     <div class="col-12 col-md-6 mx-auto">
         <h1 class="text-center">Авторизация</h1>
         <div class="text-center" th:if="${param.error}">
-            <span style="color:red">Ошибка авторизации. Проверьте логин и пароль!</span>
+            <span style="color:red">Ошибка авторизации. Проверьте корректность логина и пароля!</span>
         </div>
         <form th:action="@{/login}" method="post">
             <div class="form-group">
@@ -26,7 +26,7 @@
                 <input type="text" name="username" class="form-control" id="loginAuth" placeholder="Логин">
             </div>
             <div class="form-group">
-                <label for="passwordAuth">Password</label>
+                <label for="passwordAuth">Пароль</label>
                 <input type="password" name="password" class="form-control" id="passwordAuth" placeholder="Пароль">
             </div>
             <input type="hidden" name="_csrf" value="{{_csrf.token}}" />

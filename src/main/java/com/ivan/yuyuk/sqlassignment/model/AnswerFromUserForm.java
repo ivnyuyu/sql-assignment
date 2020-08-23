@@ -6,7 +6,7 @@ public class AnswerFromUserForm implements Serializable {
 
     private Long id;
     private String answer;
-    private Boolean isCorrectAnswer;
+    private ResponseStatus status;
 
     public AnswerFromUserForm() {
 
@@ -28,12 +28,15 @@ public class AnswerFromUserForm implements Serializable {
         this.answer = answer;
     }
 
-    public Boolean getCorrectAnswer() {
-        return isCorrectAnswer;
+    public ResponseStatus getStatus() {
+        if(status == null) {
+            return ResponseStatus.EMPTY;
+        }
+        return status;
     }
 
-    public void setCorrectAnswer(Boolean correctAnswer) {
-        isCorrectAnswer = correctAnswer;
+    public void setStatus(ResponseStatus status) {
+        this.status = status;
     }
 }
 
