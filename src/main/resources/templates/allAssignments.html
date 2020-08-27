@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <title>Assignment</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -21,7 +22,12 @@
                             <h5 class="card-title" th:text="${assignment.id}"></h5>
                             <p class="card-text" th:text="${assignment.description}"></p>
                         </div>
-                        <div class="col-12 col-sm-3 d-flex justify-content-end align-items-center">
+                        <div sec:authorize="!isAuthenticated()"
+                             class="col-12 col-sm-3 d-flex justify-content-end align-items-center">
+                            <p><a th:href="${'/login'}">Войти, чтобы решить</a></p>
+                        </div>
+                        <div sec:authorize="isAuthenticated()"
+                             class="col-12 col-sm-3 d-flex justify-content-end align-items-center">
                             <form th:action="@{'/assignment/' + ${assignment.id}}" method="get">
                                 <button class="btn btn-primary" type="submit">Решить</button>
                             </form>
