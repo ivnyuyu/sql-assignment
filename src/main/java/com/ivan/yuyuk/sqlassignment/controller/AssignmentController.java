@@ -59,4 +59,9 @@ public class AssignmentController {
         model.addAttribute("progress", service.findAllCorrectAssignmentsByCurrentUser());
         return "userProgress";
     }
+
+    @GetMapping("/aboutProject")
+    public String aboutProject() {
+        return "aboutProject";
+    }
 }

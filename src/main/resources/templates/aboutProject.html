@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>О проекте</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+
+<div th:insert="~{header :: copy}"></div>
+
+<div class="container pt-5">
+    <h1>О проекте</h1>
+    <p>MySQL Exercises был разработан Ююкиным Иваном для помощи в освоении SQL запросов на базе данных MySQL.
+        Задачи представленные на сайте были предложенны студентам 3 курса в рамках изучении дисциплины 'Базы данных'
+        университета ТУСУР по программе 'Информатика и
+        вычислительная техника.' </p>
+    <h5>Использованные технологии:</h5>
+    <ul>
+        <li>MySQL</li>
+        <li>Java 8</li>
+        <li>Spring Boot</li>
+        <li>Spring Security</li>
+        <li>Hibernate</li>
+        <li>JavaScript</li>
+        <li>Thymeleaf</li>
+        <li>Bootstrap</li>
+    </ul>
+
+    <h1>Контакты</h1>
+    <p>Связаться с разработчиком можно в телеграмме <a href="https://t.me/ivnyuyu" target="_blank">t.me/ivnyuyu</a>. Исходный код проекта <a
+            href="https://github.com/ivnyuyu/sql-assignment" target="_blank">лежит на гитхабе</a>.  </p>
+    <h1>Схема базы данных с описанием атрибутов</h1>
+    <div class="col-sm-12 text-center">
+        <div style="display: inline-block;">
+            <img class="center-block"  th:src="@{/images/schema.png}" style="height: 300px;">
+            <img class="center-block" th:src="@{/images/attributies.png}" style="height: 300px;">
+        </div>
+    </div>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>
