@@ -38,7 +38,7 @@ create table SPJ
     KEY `fk_j` (Jnum),
     CONSTRAINT `fk_s` FOREIGN KEY (`Snum`) REFERENCES `S` (`Snum`),
     CONSTRAINT `fk_p` FOREIGN KEY (`Pnum`) REFERENCES `P` (`Pnum`),
-    CONSTRAINT `fk_j` FOREIGN KEY (`Jnum`) REFERENCES `J` (`Jnum`),
+    CONSTRAINT `fk_j` FOREIGN KEY (`Jnum`) REFERENCES `J` (`Jnum`)
 );
 
 
@@ -73,9 +73,3 @@ CREATE TABLE `solution`
     CONSTRAINT `fk_assignment` FOREIGN KEY (`assignment_id`) REFERENCES `assignment` (`id`),
     CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 );
-
-insert into assignment(id, description, correct_query)
-values (1, 'Получить полные сведения обо всех изделиях.', 'select * from j');
-
-insert into assignment(id, description, correct_query)
-values (2, 'Получить полные  сведения обо всех изделиях в Томске.', 'select * from j where St =\'Томск'');
