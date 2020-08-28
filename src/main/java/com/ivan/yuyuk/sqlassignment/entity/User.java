@@ -12,6 +12,7 @@ public class User {
     private Long id;
     private String userName;
     private String password;
+    @Column(name = "active", columnDefinition = "INT(1)")
     private boolean active;
     private String roles;
 
