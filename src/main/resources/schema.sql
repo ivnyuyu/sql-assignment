@@ -1,4 +1,4 @@
-create table J
+create table if not exists J
 (
     Jnum int         not null
         primary key,
@@ -7,7 +7,7 @@ create table J
     Ci varchar(45) null
 );
 
-create table P
+create table if not exists P
 (
     Pnum int         not null
         primary key,
@@ -17,7 +17,7 @@ create table P
     Ci varchar(45) null
 );
 
-create table S
+create table if not exists S
 (
     Snum int         not null
         primary key,
@@ -26,7 +26,7 @@ create table S
     Ci varchar(45) null
 );
 
-create table SPJ
+create table if not exists SPJ
 (
     Snum       int(11) NOT NULL,
     Pnum       int(11) NOT NULL,
@@ -42,7 +42,7 @@ create table SPJ
 );
 
 
-create table users
+create table if not exists users
 (
     id        int auto_increment primary key,
     user_name varchar(50)          null,
@@ -51,7 +51,7 @@ create table users
     active    tinyint(1) default 1 null
 );
 
-create table assignment
+create table if not exists assignment
 (
     id            int          not null
         primary key,
@@ -61,7 +61,7 @@ create table assignment
 
 
 
-CREATE TABLE `solution`
+CREATE TABLE if not exists `solution`
 (
     `user_id`       int(11) NOT NULL,
     `assignment_id` int(11) NOT NULL,
