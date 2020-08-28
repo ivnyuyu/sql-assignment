@@ -118,6 +118,7 @@ public class ApplicationService {
         Optional<User> userFromDB = userRepository.findByUserName(user.getUserName());
         if(!userFromDB.isPresent()) {
             User newUser = new User();
+            newUser.setUserName(user.getUserName());
             newUser.setActive(true);
             newUser.setRoles("USER");
             newUser.setPassword(passwordEncoder.encode(user.getPassword()));
