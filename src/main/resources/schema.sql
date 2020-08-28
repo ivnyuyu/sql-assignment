@@ -32,13 +32,7 @@ create table if not exists SPJ
     Pnum       int(11) NOT NULL,
     Jnum       int(11) NOT NULL,
     Qt int,
-    primary key (Snum,Pnum, Jnum),
-    KEY `fk_s` (Snum),
-    KEY `fk_p` (Pnum),
-    KEY `fk_j` (Jnum),
-    CONSTRAINT `fk_s` FOREIGN KEY (`Snum`) REFERENCES `S` (`Snum`),
-    CONSTRAINT `fk_p` FOREIGN KEY (`Pnum`) REFERENCES `P` (`Pnum`),
-    CONSTRAINT `fk_j` FOREIGN KEY (`Jnum`) REFERENCES `J` (`Jnum`)
+    primary key (Snum,Pnum, Jnum)
 );
 
 
@@ -61,15 +55,11 @@ create table if not exists assignment
 
 
 
-CREATE TABLE if not exists `solution`
+CREATE TABLE if not exists solution
 (
-    `user_id`       int(11) NOT NULL,
-    `assignment_id` int(11) NOT NULL,
+    user_id       int(11) NOT NULL,
+    assignment_id int(11) NOT NULL,
     answer          text,
     answer_date     datetime,
-    PRIMARY KEY (user_id, assignment_id),
-    KEY `fk_user` (`user_id`),
-    KEY `fk_assignment` (`assignment_id`),
-    CONSTRAINT `fk_assignment` FOREIGN KEY (`assignment_id`) REFERENCES `assignment` (`id`),
-    CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+    PRIMARY KEY (user_id, assignment_id)
 );
