@@ -61,6 +61,6 @@ CREATE TABLE if not exists solution
     user_id       int NOT NULL,
     assignment_id int NOT NULL,
     answer        text,
-    answer_date   datetime,
+    answer_date   date,
     PRIMARY KEY (user_id, assignment_id)
 );
