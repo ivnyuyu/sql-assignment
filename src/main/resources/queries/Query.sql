@@ -1,3 +1,66 @@
+create table J
+(
+    Jnum int         not null
+        primary key,
+    Jnam varchar(100) not null,
+    St varchar(45) null,
+    Ci varchar(45) null
+);
+
+create table P
+(
+    Pnum int         not null
+        primary key,
+    Pnam varchar(100) not null,
+    We double not null,
+    Co varchar(45) null,
+    Ci varchar(45) null
+);
+
+create table S
+(
+    Snum int         not null
+        primary key,
+    Snam varchar(100) not null,
+    St varchar(45) null,
+    Ci varchar(45) null
+);
+
+create table SPJ
+(
+    Snum       int(11) NOT NULL,
+    Pnum       int(11) NOT NULL,
+    Jnum       int(11) NOT NULL,
+    Qt int,
+    primary key (Snum,Pnum, Jnum),
+    KEY `fk_s` (Snum),
+    KEY `fk_p` (Pnum),
+    KEY `fk_j` (Jnum),
+    CONSTRAINT `fk_s` FOREIGN KEY (`Snum`) REFERENCES `S` (`Snum`),
+    CONSTRAINT `fk_p` FOREIGN KEY (`Pnum`) REFERENCES `P` (`Pnum`),
+    CONSTRAINT `fk_j` FOREIGN KEY (`Jnum`) REFERENCES `J` (`Jnum`),
+);
+
+
+create table users
+(
+    id        int auto_increment primary key,
+    user_name varchar(50)          null,
+    password  text                 null,
+    roles     varchar(50)          null,
+    active    tinyint(1) default 1 null
+);
+
+create table assignment
+(
+    id            int          not null
+        primary key,
+    description   varchar(700) not null,
+    correct_query varchar(150) not null
+);
+
+
+
 CREATE TABLE `solution`
 (
     `user_id`       int(11) NOT NULL,
@@ -10,3 +73,9 @@ CREATE TABLE `solution`
     CONSTRAINT `fk_assignment` FOREIGN KEY (`assignment_id`) REFERENCES `assignment` (`id`),
     CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 );
+
+insert into assignment(id, description, correct_query)
+values (1, 'Получить полные сведения обо всех изделиях.', 'select * from j');
+
+insert into assignment(id, description, correct_query)
+values (2, 'Получить полные сведения обо всех изделиях в Томске.', 'select * from j where St =\'Томск'');

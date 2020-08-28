@@ -18,10 +18,6 @@ public class Assignment {
     @Column(name = "correct_query")
     private String correctQuery;
 
-    @JoinColumn(name = "user_loader")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private User userLoader;
-
     @OneToMany(
             mappedBy = "assignment",
             cascade = CascadeType.ALL,
@@ -45,31 +41,8 @@ public class Assignment {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getCorrectQuery() {
         return correctQuery;
     }
 
-    public void setCorrectQuery(String correctQuery) {
-        this.correctQuery = correctQuery;
-    }
-
-    public User getUserLoader() {
-        return userLoader;
-    }
-
-    public void setUserLoader(User userLoader) {
-        this.userLoader = userLoader;
-    }
-
-    public List<Solution> getUserSolutions() {
-        return userSolutions;
-    }
-
-    public void setUserSolutions(List<Solution> userSolutions) {
-        this.userSolutions = userSolutions;
-    }
 }
