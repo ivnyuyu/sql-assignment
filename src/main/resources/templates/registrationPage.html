@@ -19,6 +19,7 @@
         <form th:action="@{/registration}"
               th:object="${userDTO}"
               method="post">
+            <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <div th:if="${errorMessage != null}" class="form-group">
                 <h5 style="color: red; text-align: center">Ошибка регистрации, пользователь с таким именем уже зарегистрирован!</h5>
             </div>
