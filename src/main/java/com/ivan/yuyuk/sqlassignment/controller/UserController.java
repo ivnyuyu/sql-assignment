@@ -40,7 +40,13 @@ public class UserController {
             redirectAttributes.addFlashAttribute("userDTO",userDTO);
             return "redirect:/registration";
         }
-        boolean isSuccessRegistration = service.doRegistration(userDTO);
+        boolean isSuccessRegistration = false;
+        try {
+            isSuccessRegistration = service.doRegistration(userDTO);
+        } catch (Exception e) {
+            System.err.println(e);
+            e.printStackTrace();
+        }
         if (isSuccessRegistration) {
             return "redirect:/login";
         }
