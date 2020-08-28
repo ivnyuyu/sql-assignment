@@ -12,7 +12,7 @@ create table if not exists P
     Pnum int         not null
         primary key,
     Pnam varchar(100) not null,
-    We double not null,
+    We int not null,
     Co varchar(45) null,
     Ci varchar(45) null
 );
