@@ -1,4 +1,4 @@
--- Добавление
+/*-- Добавление
 insert into assignment(id, description, correct_query)
 values (1, 'Получить полные сведения обо всех изделиях.', 'select * from j'),
 (2, 'Получить полные сведения обо всех изделиях в Томске.', 'select * from j where Ci = \'Томск\''),
@@ -39,4 +39,4 @@ insert into S(Snum, Snam, Ci) values
  (8, 'S8','Курск'),
  (9, 'S9','Новокузнецк'),
  (10, 'S10','Бразилиа');
---git
+--git*/
